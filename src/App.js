@@ -47,7 +47,7 @@ function App() {
   return (
     <div>
       <h1>Todo List: </h1>
-      <button onClick={()=>setAddTodo(!addTodo)}>{(addTodo ? 'Close' : 'Add Todo')}</button>
+      <button className='addButton' onClick={()=>setAddTodo(!addTodo)}>{(addTodo ? 'Close' : 'Add Todo')}</button>
       <div className={(addTodo? 'show' : 'hide')}>
         <form onSubmit={addInputTodo}>
           <input 

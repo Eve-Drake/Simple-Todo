@@ -45,3 +45,16 @@
 h1{
   text-align: center;
 }
+
+.addButton{
+  background: none;
+  border: 2px slategray solid;
+  border-radius: 15px;
+  display: flex;
+  align-self: center;
+}
+
+.addButton:hover{
+  background-color: lightgrey;
+  cursor: pointer;
+}

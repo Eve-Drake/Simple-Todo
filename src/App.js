@@ -1,14 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Todo from "./Todo";
+import AddTodo from "./todo/Features/AddTodo";
+import RenderTodo from "./todo/Display/RenderTodo";
+
 
 
 function App() {
   const [todos, setTodos] = useState([])
-  const [addTodo, setAddTodo] = useState(false)
-  const [todo, setTodo] = useState('')
-  const [displayTodoSettings, setDisplayTodoSettings] = useState([])
-  const [displayTodo, setDisplayedTodo] = useState('All')
 
   const getPlaceholderTodos = async () =>{
     try{
@@ -21,55 +19,15 @@ function App() {
   }
 
   useEffect(()=>{
-    getPlaceholderTodos()
+    getPlaceholderTodos();
   },[])
 
-  const addInputTodo = (e) => {
-    e.preventDefault();
-    setTodos([...todos, {todo:todo, id: Math.floor(Math.random() * 1000), completed: false, }])
-    setTodo('')
-    setAddTodo(false)
-  }
-
-  const deleteTodo = (id) =>{
-    setTodos(todos.filter(el => el.id !== id))
-  }
-
-  const completeTodo = (id) => {
-    setTodos(todos.map((el) => {
-      if(el.id === id){
-        return {...el, completed: !el.completed}
-      }
-      return el
-    }))
-  }
 
   return (
     <div>
       <h1>Todo List: </h1>
-      <button className='addButton' onClick={()=>setAddTodo(!addTodo)}>{(addTodo ? 'Close' : 'Add Todo')}</button>
-      <div className={(addTodo? 'show' : 'hide')}>
-        <form onSubmit={addInputTodo}>
-          <input 
-            placeholder="Add Todo"
-            value={todo}
-            onChange={e => setTodo(e.target.value)}
-          />
-          <button type="submit">Add</button>
-        </form>
-      </div>
-
-      {todos.map((todo) => (
-        <div key={todo.id}>
-          <Todo 
-            todo={todo.todo} 
-            completed={todo.completed}
-            id={todo.id}
-            deleteTodo={deleteTodo}
-            completeTodo={completeTodo}
-            />
-        </div>
-      ))}
+      <AddTodo todos={todos} setTodos={setTodos}/>
+      <RenderTodo todos={todos} setTodos={setTodos}/>
     </div>
   );
 }
